@@ -1,8 +1,22 @@
+import { useState } from "react";
 import CalculatorButton from "./components/CalculatorButton";
+import { formatOperand } from "./lib/utils";
 
 function App() {
+  const [currentOperand, setCurrentOperand] = useState<string>("0");
+  const [previousOperand, setPreviousOperand] = useState<string>("");
+  const [operation, setOperation] = useState<string>("");
+  const [overwrite, setOverwrite] = useState<boolean>(true);
+
   function handleNumber(value: string) {
-    console.log("handleNumber ", value);
+    if (overwrite) {
+      setCurrentOperand(value);
+      setOverwrite(false);
+    } else {
+      if (value == "0" && currentOperand == "0") return;
+      if (value == "." && currentOperand.includes(".")) return;
+      setCurrentOperand(`${currentOperand}${value}`);
+    }
   }
 
   function handleOperator(value: string) {
@@ -10,9 +24,12 @@ function App() {
   }
 
   return (
-    <div className="flex flex-col justify-center items-center gap-2 w-full h-full min-h-svh">
-      <div className="h-12 text-3xl text-right pr-3 pt-1 border border-black w-[23rem]">
-        0
+    <div className="flex flex-col justify-center items-center w-full h-full min-h-svh">
+      <div className="h-12 text-2xl text-right pr-3 pt-2 border border-b-0 border-black w-[23rem]">
+        {formatOperand(previousOperand)} {operation}
+      </div>
+      <div className="h-12 text-3xl text-right pr-3 mb-1 border border-t-0 border-black w-[23rem]">
+        {formatOperand(currentOperand)}
       </div>
       <div className="grid grid-cols-4 gap-1">
         <CalculatorButton
@@ -106,7 +123,7 @@ function App() {
         <CalculatorButton
           variant={"operator"}
           value={"."}
-          handleOnClick={handleOperator}
+          handleOnClick={handleNumber}
         >
           {"."}
         </CalculatorButton>
