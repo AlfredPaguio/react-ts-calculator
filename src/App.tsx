@@ -1,12 +1,12 @@
 import CalculatorButton from "./components/CalculatorButton";
 
 function App() {
-  function handleNumber() {
-    console.log("handleNumber ");
+  function handleNumber(value: string) {
+    console.log("handleNumber ", value);
   }
 
-  function handleOperator() {
-    console.log("handleOperator ");
+  function handleOperator(value: string) {
+    console.log("handleOperator ", value);
   }
 
   return (
@@ -18,98 +18,102 @@ function App() {
         <CalculatorButton
           value={"<="}
           variant={"operator"}
-          onClick={handleOperator}
+          handleOnClick={handleOperator}
         >
           {"<="}
         </CalculatorButton>
         <CalculatorButton
           value={"%"}
           variant={"operator"}
-          onClick={handleOperator}
+          handleOnClick={handleOperator}
         >
           {"%"}
         </CalculatorButton>
         <CalculatorButton
           value={"AC"}
           variant={"operator"}
-          onClick={handleOperator}
+          handleOnClick={handleOperator}
         >
           {"AC"}
         </CalculatorButton>
         <CalculatorButton
           value={"/"}
           variant={"operator"}
-          onClick={handleOperator}
+          handleOnClick={handleOperator}
         >
           {"/"}
         </CalculatorButton>
 
-        <CalculatorButton value={7} onClick={handleNumber}>
+        <CalculatorButton value={7} handleOnClick={handleNumber}>
           {7}
         </CalculatorButton>
-        <CalculatorButton value={8} onClick={handleNumber}>
+        <CalculatorButton value={8} handleOnClick={handleNumber}>
           {8}
         </CalculatorButton>
-        <CalculatorButton value={9} onClick={handleNumber}>
+        <CalculatorButton value={9} handleOnClick={handleNumber}>
           {9}
         </CalculatorButton>
 
         <CalculatorButton
           variant={"operator"}
           value={"x"}
-          onClick={handleOperator}
+          handleOnClick={handleOperator}
         >
           {"X"}
         </CalculatorButton>
 
-        <CalculatorButton value={4} onClick={handleNumber}>
+        <CalculatorButton value={4} handleOnClick={handleNumber}>
           {4}
         </CalculatorButton>
-        <CalculatorButton value={5} onClick={handleNumber}>
+        <CalculatorButton value={5} handleOnClick={handleNumber}>
           {5}
         </CalculatorButton>
-        <CalculatorButton value={6} onClick={handleNumber}>
+        <CalculatorButton value={6} handleOnClick={handleNumber}>
           {6}
         </CalculatorButton>
         <CalculatorButton
           variant={"operator"}
           value={"-"}
-          onClick={handleOperator}
+          handleOnClick={handleOperator}
         >
           {"-"}
         </CalculatorButton>
 
-        <CalculatorButton value={1} onClick={handleNumber}>
+        <CalculatorButton value={1} handleOnClick={handleNumber}>
           {1}
         </CalculatorButton>
-        <CalculatorButton value={2} onClick={handleNumber}>
+        <CalculatorButton value={2} handleOnClick={handleNumber}>
           {2}
         </CalculatorButton>
-        <CalculatorButton value={3} onClick={handleNumber}>
+        <CalculatorButton value={3} handleOnClick={handleNumber}>
           {3}
         </CalculatorButton>
 
         <CalculatorButton
           variant={"operator"}
           value={"+"}
-          onClick={handleOperator}
+          handleOnClick={handleOperator}
         >
           {"+"}
         </CalculatorButton>
-        <CalculatorButton span={"span-2"} value={0} onClick={handleNumber}>
+        <CalculatorButton
+          span={"span-2"}
+          value={0}
+          handleOnClick={handleNumber}
+        >
           {0}
         </CalculatorButton>
         <CalculatorButton
           variant={"operator"}
           value={"."}
-          onClick={handleOperator}
+          handleOnClick={handleOperator}
         >
           {"."}
         </CalculatorButton>
         <CalculatorButton
           variant={"operator"}
           value={"="}
-          onClick={handleOperator}
+          handleOnClick={handleOperator}
         >
           {"="}
         </CalculatorButton>
