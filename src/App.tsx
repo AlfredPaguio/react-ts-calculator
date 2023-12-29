@@ -15,28 +15,104 @@ function App() {
         0
       </div>
       <div className="grid grid-cols-4 gap-1">
-        <CalculatorButton operator value={"<="} onClick={handleOperator} />
-        <CalculatorButton operator value={"%"} onClick={handleOperator} />
-        <CalculatorButton operator value={"AC"} onClick={handleOperator} />
-        <CalculatorButton operator value={"/"} onClick={handleOperator} />
+        <CalculatorButton
+          value={"<="}
+          variant={"operator"}
+          onClick={handleOperator}
+        >
+          {"<="}
+        </CalculatorButton>
+        <CalculatorButton
+          value={"%"}
+          variant={"operator"}
+          onClick={handleOperator}
+        >
+          {"%"}
+        </CalculatorButton>
+        <CalculatorButton
+          value={"AC"}
+          variant={"operator"}
+          onClick={handleOperator}
+        >
+          {"AC"}
+        </CalculatorButton>
+        <CalculatorButton
+          value={"/"}
+          variant={"operator"}
+          onClick={handleOperator}
+        >
+          {"/"}
+        </CalculatorButton>
 
-        <CalculatorButton value={7} onClick={handleNumber} />
-        <CalculatorButton value={8} onClick={handleNumber} />
-        <CalculatorButton value={9} onClick={handleNumber} />
-        <CalculatorButton operator value={"x"} onClick={handleOperator} />
+        <CalculatorButton value={7} onClick={handleNumber}>
+          {7}
+        </CalculatorButton>
+        <CalculatorButton value={8} onClick={handleNumber}>
+          {8}
+        </CalculatorButton>
+        <CalculatorButton value={9} onClick={handleNumber}>
+          {9}
+        </CalculatorButton>
 
-        <CalculatorButton value={4} onClick={handleNumber} />
-        <CalculatorButton value={5} onClick={handleNumber} />
-        <CalculatorButton value={6} onClick={handleNumber} />
-        <CalculatorButton operator value={"-"} onClick={handleOperator} />
+        <CalculatorButton
+          variant={"operator"}
+          value={"x"}
+          onClick={handleOperator}
+        >
+          {"X"}
+        </CalculatorButton>
 
-        <CalculatorButton value={1} onClick={handleNumber} />
-        <CalculatorButton value={2} onClick={handleNumber} />
-        <CalculatorButton value={3} onClick={handleNumber} />
-        <CalculatorButton operator value={"+"} onClick={handleOperator} />
-        <CalculatorButton span value={0} onClick={handleNumber} />
-        <CalculatorButton operator value={"."} onClick={handleOperator} />
-        <CalculatorButton operator value={"="} onClick={handleOperator} />
+        <CalculatorButton value={4} onClick={handleNumber}>
+          {4}
+        </CalculatorButton>
+        <CalculatorButton value={5} onClick={handleNumber}>
+          {5}
+        </CalculatorButton>
+        <CalculatorButton value={6} onClick={handleNumber}>
+          {6}
+        </CalculatorButton>
+        <CalculatorButton
+          variant={"operator"}
+          value={"-"}
+          onClick={handleOperator}
+        >
+          {"-"}
+        </CalculatorButton>
+
+        <CalculatorButton value={1} onClick={handleNumber}>
+          {1}
+        </CalculatorButton>
+        <CalculatorButton value={2} onClick={handleNumber}>
+          {2}
+        </CalculatorButton>
+        <CalculatorButton value={3} onClick={handleNumber}>
+          {3}
+        </CalculatorButton>
+
+        <CalculatorButton
+          variant={"operator"}
+          value={"+"}
+          onClick={handleOperator}
+        >
+          {"+"}
+        </CalculatorButton>
+        <CalculatorButton span={"span-2"} value={0} onClick={handleNumber}>
+          {0}
+        </CalculatorButton>
+        <CalculatorButton
+          variant={"operator"}
+          value={"."}
+          onClick={handleOperator}
+        >
+          {"."}
+        </CalculatorButton>
+        <CalculatorButton
+          variant={"operator"}
+          value={"="}
+          onClick={handleOperator}
+        >
+          {"="}
+        </CalculatorButton>
       </div>
     </div>
   );
