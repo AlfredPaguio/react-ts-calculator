@@ -20,7 +20,65 @@ function App() {
   }
 
   function handleOperator(value: string) {
-    console.log("handleOperator ", value);
+    if (!currentOperand && !previousOperand) return;
+    if (!currentOperand) {
+      console.log("currentOperand", currentOperand);
+      setOperation(value);
+      return;
+    }
+    if (!previousOperand) {
+      console.log("previousOperand", previousOperand, "operator", value);
+      setOperation(value);
+      setPreviousOperand(currentOperand);
+      setCurrentOperand("");
+      return;
+    }
+
+    setPreviousOperand(calculate);
+    setOperation(value);
+    setCurrentOperand("");
+  }
+
+  function calculate() {
+    if (!previousOperand || !operation) return currentOperand;
+    const prev = +previousOperand;
+    const current = +currentOperand;
+
+    console.log("previous:", prev, "current: ", current);
+    let computation: number;
+    switch (operation) {
+      case "+":
+        computation = prev + current;
+        break;
+      case "-":
+        computation = prev - current;
+        break;
+      case "*":
+        computation = prev * current;
+        break;
+      case "÷":
+        computation = prev / current;
+        break;
+      default:
+        //operation failed
+        computation = 0;
+    }
+    return computation.toString();
+  }
+
+  function handleEquals() {
+    if (!operation || !currentOperand || !previousOperand) return;
+    setCurrentOperand(calculate());
+    setOverwrite(true);
+    setOperation("");
+    setPreviousOperand("");
+  }
+
+  function handleAllClear() {
+    setCurrentOperand("0");
+    setPreviousOperand("");
+    setOperation("");
+    setOverwrite(true);
   }
 
   return (
@@ -49,16 +107,16 @@ function App() {
         <CalculatorButton
           value={"AC"}
           variant={"operator"}
-          handleOnClick={handleOperator}
+          handleOnClick={handleAllClear}
         >
           {"AC"}
         </CalculatorButton>
         <CalculatorButton
-          value={"/"}
+          value={"÷"}
           variant={"operator"}
           handleOnClick={handleOperator}
         >
-          {"/"}
+          {"÷"}
         </CalculatorButton>
 
         <CalculatorButton value={7} handleOnClick={handleNumber}>
@@ -73,7 +131,7 @@ function App() {
 
         <CalculatorButton
           variant={"operator"}
-          value={"x"}
+          value={"*"}
           handleOnClick={handleOperator}
         >
           {"X"}
@@ -130,7 +188,7 @@ function App() {
         <CalculatorButton
           variant={"operator"}
           value={"="}
-          handleOnClick={handleOperator}
+          handleOnClick={handleEquals}
         >
           {"="}
         </CalculatorButton>
