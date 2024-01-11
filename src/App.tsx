@@ -59,6 +59,9 @@ function App() {
       case "÷":
         computation = prev / current;
         break;
+      case "%":
+        computation = prev % current;
+        break;
       default:
         //operation failed
         computation = 0;
@@ -74,6 +77,12 @@ function App() {
     setPreviousOperand("");
   }
 
+  function handleClear() {
+    // Avoid clearing when the CurrentOperand is on state of overwrite (from equals) to prevent accidental digit removal
+    if (overwrite) return;
+    setCurrentOperand(currentOperand.slice(0, -1));
+  }
+
   function handleAllClear() {
     setCurrentOperand("0");
     setPreviousOperand("");
@@ -84,7 +93,7 @@ function App() {
   return (
     <div className="flex flex-col justify-center items-center w-full h-full min-h-svh">
       <div className="h-12 text-2xl text-right pr-3 pt-2 border border-b-0 border-black w-[23rem]">
-        {formatOperand(previousOperand)} {operation}
+        {previousOperand ?? formatOperand(previousOperand)} {operation}
       </div>
       <div className="h-12 text-3xl text-right pr-3 mb-1 border border-t-0 border-black w-[23rem]">
         {formatOperand(currentOperand)}
@@ -93,7 +102,7 @@ function App() {
         <CalculatorButton
           value={"<="}
           variant={"operator"}
-          handleOnClick={handleOperator}
+          handleOnClick={handleClear}
         >
           {"<="}
         </CalculatorButton>
