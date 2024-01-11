@@ -20,17 +20,19 @@ const buttonVariants = cva("border-black border h-14 px-8 text-white shadow", {
   },
 });
 
-interface CalculatorButtonProps
+export interface CalculatorButtonProps
   extends ButtonHTMLAttributes<HTMLButtonElement>,
     VariantProps<typeof buttonVariants> {
   handleOnClick: (value: string) => void;
+  label?:string;
 }
 
 const CalculatorButton = forwardRef<HTMLButtonElement, CalculatorButtonProps>(
-  ({ className, variant, span, handleOnClick, ...props }, ref) => {
+  ({ className, variant, span, label, handleOnClick, ...props }, ref) => {
     return (
       <button
         ref={ref}
+        aria-label={label}
         className={cn(buttonVariants({ variant, span, className }))}
         onClick={(e) => handleOnClick((e.target as HTMLButtonElement)?.value)}
         {...props}
