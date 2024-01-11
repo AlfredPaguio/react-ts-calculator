@@ -22,12 +22,10 @@ function App() {
   function handleOperator(value: string) {
     if (!currentOperand && !previousOperand) return;
     if (!currentOperand) {
-      console.log("currentOperand", currentOperand);
       setOperation(value);
       return;
     }
     if (!previousOperand) {
-      console.log("previousOperand", previousOperand, "operator", value);
       setOperation(value);
       setPreviousOperand(currentOperand);
       setCurrentOperand("");
@@ -44,7 +42,6 @@ function App() {
     const prev = +previousOperand;
     const current = +currentOperand;
 
-    console.log("previous:", prev, "current: ", current);
     let computation: number;
     switch (operation) {
       case "+":
