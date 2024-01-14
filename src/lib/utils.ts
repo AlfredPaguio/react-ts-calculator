@@ -24,13 +24,21 @@ export function formatOperand(operand: string): string | undefined {
     });
   }
 
+  const isNegative = operand.startsWith("-");
+  
   //split the left and right side of decimal
-  const [integer, decimal] = operand.split(".");
+  const [integer, decimal] = (isNegative ? operand.slice(1) : operand).split(
+    "."
+  );
+
+  const formattedInteger = INTEGER_FORMATTER.format(BigInt(integer));
   if (decimal == null) {
     //format the "number" immediately if there's no decimal
-    console.log(INTEGER_FORMATTER.format(BigInt(integer)));
-    return INTEGER_FORMATTER.format(BigInt(integer));
+    return isNegative ? `-${formattedInteger}` : formattedInteger;
   }
   //format the number on the left side and append the decimal
-  return `${INTEGER_FORMATTER.format(BigInt(integer))}.${decimal}`;
+  // return `${INTEGER_FORMATTER.format(BigInt(integer))}.${decimal}`;
+  return isNegative
+    ? `-${formattedInteger}.${decimal}`
+    : `${formattedInteger}.${decimal}`;
 }
