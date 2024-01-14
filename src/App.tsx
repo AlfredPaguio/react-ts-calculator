@@ -21,9 +21,15 @@ function App() {
       setCurrentOperand(value);
       setOverwrite(false);
     } else {
-      if (value == "0" && currentOperand == "0") return;
-      if (value == "." && currentOperand.includes(".")) return;
-      setCurrentOperand(`${currentOperand}${value}`);
+      if (value === "0" && currentOperand === "0") return;
+      if (value === "." && currentOperand.includes(".")) return;
+      if (value !== "." && currentOperand === "0") {
+        setCurrentOperand(value);
+        return;
+      }
+      setCurrentOperand(
+        (prevCurrentOperand) => `${prevCurrentOperand}${value}`
+      );
     }
   }
 
