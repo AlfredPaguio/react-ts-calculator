@@ -1,64 +1,192 @@
-import { render, fireEvent, getByRole } from '@testing-library/react';
-import '@testing-library/jest-dom';
+import { render, fireEvent } from "@testing-library/react";
+import "@testing-library/jest-dom";
 
-import App from '../App';
+import App from "../App";
 
-describe('App component', () => {
-  test('renders without crashing', () => {
+describe("App component", () => {
+  it("renders without crashing", () => {
     render(<App />);
   });
 
-  test('handles number input correctly', () => {
-    const { getByText } = render(<App />);
-    const numberButton = getByText('1');
-    fireEvent.click(numberButton);
-    expect(getByText('1')).toBeInTheDocument();
-  });
-
-  test('handles operator input correctly', () => {
-    const { getByText } = render(<App />);
-    const numberButton = getByText('1');
-    const operatorButton = getByText('+');
-
-    fireEvent.click(numberButton);
-    fireEvent.click(operatorButton);
-
-    expect(getByText('+')).toBeInTheDocument();
-  });
-
-  test('calculates result correctly on equals', () => {
-    const { getByText } = render(<App />);
-    const numberButtons = ['1', '2', '+', '3', '='];
-
-    numberButtons.forEach((buttonText) => {
-      const button = getByText(buttonText);
-      fireEvent.click(button);
+  it("handles number input correctly", () => {
+    const { getByRole } = render(<App />);
+    const numberButton = getByRole("button", {
+      name: /1/i,
     });
 
-    expect(getByText('15')).toBeInTheDocument();
+    const currentOperand = document.querySelector("#currentOperand");
+    fireEvent.click(numberButton);
+    fireEvent.click(numberButton);
+    fireEvent.click(numberButton);
+    expect(currentOperand).toHaveTextContent("111");
   });
 
-  test('handles clear correctly', () => {
-    const { getByText } = render(<App />);
-    const numberButton = getByText('1');
-    const clearButton = getByText('←');
+  it("handles operator input correctly", () => {
+    const { getByRole } = render(<App />);
+    const previousOperand = document.querySelector("#previousOperand");
+    const currentOperand = document.querySelector("#currentOperand");
+
+    const additionOperatorButton = getByRole("button", {
+      name: /\+/i,
+    });
+    const subtractionOperatorButton = getByRole("button", {
+      name: /-/i,
+    });
+    const multiplicationOperatorButton = getByRole("button", {
+      name: /\*/i,
+    });
+    const divisionOperatorButton = getByRole("button", {
+      name: /÷/i,
+    });
+
+    fireEvent.click(additionOperatorButton);
+    expect(currentOperand).toHaveTextContent("0");
+    expect(previousOperand).toHaveTextContent("0 +");
+    fireEvent.click(subtractionOperatorButton);
+    expect(previousOperand).toHaveTextContent("0 -");
+    fireEvent.click(multiplicationOperatorButton);
+    expect(previousOperand).toHaveTextContent("0 *");
+    fireEvent.click(divisionOperatorButton);
+    expect(previousOperand).toHaveTextContent("0 ÷");
+  });
+
+  it("handles clear correctly", () => {
+    const { getByRole } = render(<App />);
+    const numberButton = getByRole("button", {
+      name: /5/i,
+    });
+
+    const clearButton = getByRole("button", {
+      name: /←/i,
+    });
+    const currentOperand = document.querySelector("#currentOperand");
 
     fireEvent.click(numberButton);
     fireEvent.click(clearButton);
+    expect(currentOperand).toHaveTextContent("0");
 
-    expect(getByText('0')).toBeInTheDocument();
+    // expect(getByTestId('currentOperand')).toBeInTheDocument();
   });
 
-  test('handles all clear correctly', () => {
-    const { getByText } = render(<App />);
-    const numberButton = getByText('1');
-    // const allClearButton = getByText('AC');
-    const allClearButton = getByRole('button', { name: 'AC' });
+  it("handles all clear correctly", () => {
+    const { getByRole } = render(<App />);
+    const numberButton = getByRole("button", {
+      name: /4/i,
+    });
 
+    const allClearButton = getByRole("button", {
+      name: /ac/i,
+    });
+
+    const currentOperand = document.querySelector("#currentOperand");
 
     fireEvent.click(numberButton);
     fireEvent.click(allClearButton);
+    expect(currentOperand).toHaveTextContent("0");
 
-    expect(getByText('0')).toBeInTheDocument();
+    // expect(getByText("0")).toBeInTheDocument();
+  });
+
+  it("handles decimal correctly", () => {
+    const { getByRole } = render(<App />);
+    const decimalButton = getByRole("button", {
+      name: /\./i,
+    });
+
+    const numberButton = getByRole("button", {
+      name: /7/i,
+    });
+
+    const currentOperand = document.querySelector("#currentOperand");
+
+    fireEvent.click(numberButton);
+    fireEvent.click(decimalButton);
+    expect(currentOperand).toHaveTextContent("7.");
+    fireEvent.click(decimalButton);
+    fireEvent.click(decimalButton);
+    expect(currentOperand).toHaveTextContent("7.");
+  });
+});
+
+describe("Computations", () => {
+  it("calculates result correctly on equals", () => {
+    const { getByRole } = render(<App />);
+    const numberButtons = ["1", "2", "+", "3", "="];
+
+    numberButtons.forEach((buttonText) => {
+      const button = getByRole("button", {
+        name: buttonText,
+      });
+
+      fireEvent.click(button);
+    });
+    const currentOperand = document.querySelector("#currentOperand");
+
+    // expect(getByText('15')).toBeInTheDocument();
+    expect(currentOperand).toHaveTextContent("15");
+  });
+
+  it("displays correct result after multiple operations", () => {
+    const { getByRole } = render(<App />);
+    const numberButtons = [
+      "9",
+      "6",
+      "-",
+      "9",
+      "*",
+      "4",
+      "5",
+      "÷",
+      "2",
+      "%",
+      "6",
+      "=",
+    ];
+
+    numberButtons.forEach((buttonText) => {
+      const button = getByRole("button", {
+        name: buttonText,
+      });
+
+      fireEvent.click(button);
+    });
+    const previousOperand = document.querySelector("#previousOperand");
+    const currentOperand = document.querySelector("#currentOperand");
+    expect(previousOperand).toHaveTextContent("");
+    expect(currentOperand).toHaveTextContent("1.5");
+  });
+
+  it("displays correct result after multiple operations with decimal points", () => {
+    const { getByRole } = render(<App />);
+    const numberButtons = [
+      "7",
+      ".",
+      "8",
+      "9",
+      "*",
+      "4",
+      ".",
+      "5",
+      "+",
+      "2",
+      "÷",
+      "1",
+      "*",
+      "6",
+      ".",
+      "3",
+      "=",
+    ];
+
+    numberButtons.forEach((buttonText) => {
+      const button = getByRole("button", {
+        name: buttonText,
+      });
+      fireEvent.click(button);
+    });
+    const currentOperand = document.querySelector("#currentOperand");
+    const previousOperand = document.querySelector("#previousOperand");
+    expect(currentOperand).toHaveTextContent("236.28149999999997");
+    expect(previousOperand).toHaveTextContent("");
   });
 });

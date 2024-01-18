@@ -12,7 +12,7 @@ export default function HistoryScreen({
   return (
     <div className="absolute text-2xl text-right text-gray-300 pr-3 bg-black/90 w-[23rem] h-full">
       <div className="relative">
-        <ul>
+        <ul className="pt-11">
           {history.map((entry, index) => (
             <li key={index}>{entry}</li>
           ))}
