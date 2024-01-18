@@ -69,7 +69,7 @@ function App() {
       case "*":
         computation = prev * current;
         break;
-      case "/":
+      case "÷":
         computation = prev / current;
         break;
       case "%":
@@ -106,7 +106,7 @@ function App() {
   }
 
   return (
-    <div className="flex flex-col justify-center items-center min-h-svh m-auto">
+    <main role="main" className="flex flex-col justify-center items-center min-h-svh m-auto">
       <div className="relative flex flex-col justify-center items-center m-auto">
         <DisplayScreen
           currentOperand={currentOperand}
@@ -134,7 +134,7 @@ function App() {
           />
         )}
       </div>
-    </div>
+    </main>
   );
 }
 

@@ -24,15 +24,14 @@ export interface CalculatorButtonProps
   extends ButtonHTMLAttributes<HTMLButtonElement>,
     VariantProps<typeof buttonVariants> {
   handleOnClick: (value: string) => void;
-  label?:string;
 }
 
 const CalculatorButton = forwardRef<HTMLButtonElement, CalculatorButtonProps>(
-  ({ className, variant, span, label, handleOnClick, ...props }, ref) => {
+  ({ className, variant, span, handleOnClick, ...props }, ref) => {
     return (
       <button
         ref={ref}
-        aria-label={label}
+        role="button"
         className={cn(buttonVariants({ variant, span, className }))}
         onClick={(e) => handleOnClick((e.target as HTMLButtonElement)?.value)}
         {...props}

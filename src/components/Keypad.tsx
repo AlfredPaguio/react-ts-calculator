@@ -17,18 +17,16 @@ export default function Keypad({
 }: KeypadProps) {
   const buttonData: CalculatorButtonProps[] = [
     {
-      value: "<=",
+      value: "←",
       variant: "operator",
       handleOnClick: handleClear,
-      label: "←",
     },
     { value: "%", variant: "operator", handleOnClick: handleOperator },
     { value: "AC", variant: "operator", handleOnClick: handleAllClear },
     {
-      value: "/",
+      value: "÷",
       variant: "operator",
       handleOnClick: handleOperator,
-      label: "÷",
     },
     { value: 7, handleOnClick: () => handleNumber("7") },
     { value: 8, handleOnClick: () => handleNumber("8") },
@@ -37,7 +35,6 @@ export default function Keypad({
       value: "*",
       variant: "operator",
       handleOnClick: handleOperator,
-      label: "X",
     },
     { value: 4, handleOnClick: () => handleNumber("4") },
     { value: 5, handleOnClick: () => handleNumber("5") },
@@ -55,8 +52,12 @@ export default function Keypad({
   return (
     <div className="grid grid-cols-4 gap-2">
       {buttonData.map((button, index) => (
-        <CalculatorButton key={index} {...button}>
-          {button.label || button.value}
+        <CalculatorButton
+          key={index}
+          {...button}
+          aria-label={String(button.value)}
+        >
+          {button.value}
         </CalculatorButton>
       ))}
     </div>
